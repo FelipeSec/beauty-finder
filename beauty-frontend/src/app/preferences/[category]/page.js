@@ -36,8 +36,11 @@ export default function Preferences() {
         body: JSON.stringify({ category, preferences: selectedPreferences })
       });
 
-      const data = await response.json();
-      
+      const text = await response.text();
+      console.log('Response text:', text);
+
+      const data = JSON.parse(text);
+
       if (!response.ok) {
         throw new Error(data.error || 'Failed to get recommendations');
       }

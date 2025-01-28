@@ -1,0 +1,32 @@
+
+.product-details-container {
+  padding: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.product-details-container h1 {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.product-details-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.product-details-container li {
+  margin-bottom: 16px;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.product-details-container a {
+  color: #4f46e5; /* Indigo color */
+  text-decoration: none;
+}
+
+.product-details-container a:hover {
+  text-decoration: underline;
+}

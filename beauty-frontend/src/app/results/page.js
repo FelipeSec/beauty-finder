@@ -43,6 +43,10 @@ export default function Results() {
     setIsDarkMode(prevMode => !prevMode);
   };
 
+  const handleProductSelect = (productId) => {
+    router.push(`/products/${productId}`); // Navigate to the product details page
+  };
+
   if (isLoading) {
     return (
       <div className={`results-container ${isDarkMode ? 'dark' : ''} loading`}>
@@ -115,6 +119,14 @@ export default function Results() {
                 </p>
               </div>
             )}
+
+            {/* Button to select the product */}
+            <button 
+              onClick={() => handleProductSelect(product.id)} // Assuming product has an id property
+              className="select-product-button"
+            >
+              Select Product
+            </button>
           </div>
         ))}
       </div>

@@ -155,3 +155,26 @@
 .toggle-button:hover {
   background-color: #4338ca; /* Darker shade on hover */
 }
+
+.select-product-button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  background-color: #4f46e5;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.select-product-button:hover {
+  background-color: #4338ca;
+}
+
+.dark .select-product-button {
+  background-color: #6366f1;
+}
+
+.dark .select-product-button:hover {
+  background-color: #4f46e5;
+}
