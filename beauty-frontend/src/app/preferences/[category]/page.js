@@ -1,7 +1,7 @@
 'use client';
-
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import './Preferences.css'; // Import the CSS file
 
 export default function Preferences() {
   const params = useParams();
@@ -9,6 +9,7 @@ export default function Preferences() {
   const [selectedPreferences, setSelectedPreferences] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isDarkMode, setIsDarkMode] = useState(false); // State for dark mode
   const category = params.category;
 
   const preferenceOptions = {
@@ -57,35 +58,47 @@ export default function Preferences() {
     }
   };
 
+  const toggleDarkMode = () => {
+    setIsDarkMode(prevMode => !prevMode);
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
+    <div className={`preferences-container ${isDarkMode ? 'dark' : ''}`}>
       <button 
         onClick={() => router.push('/')}
-        className="mb-8 text-indigo-600 hover:text-indigo-700"
+        className="back-button"
       >
         ← Back to Categories
       </button>
 
-      <div className="max-w-2xl mx-auto">
+      <button 
+        onClick={toggleDarkMode}
+        className="toggle-button"
+        aria-label="Toggle dark mode"
+      >
+        {isDarkMode ? '🌙' : '☀️'} {/* Moon for dark mode, sun for light mode */}
+      </button>
+
+      <div className="form-container">
         {error && (
-          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
+          <div className="error-message">
             {error}
           </div>
         )}
         
-        <h1 className="text-3xl font-bold mb-6">
+        <h1 className="title">
           {category?.charAt(0).toUpperCase() + category?.slice(1)} Preferences
         </h1>
 
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
-          <div className="grid gap-4 mb-8">
+        <form onSubmit={handleSubmit} className="preferences-form">
+          <div className="preferences-list">
             {preferenceOptions[category]?.map((pref) => (
-              <label key={pref} className="flex items-center gap-3 cursor-pointer">
+              <label key={pref} className="preference-item">
                 <input
                   type="checkbox"
                   checked={selectedPreferences.includes(pref)}
                   onChange={() => handlePreferenceToggle(pref)}
-                  className="h-5 w-5 rounded border-gray-300"
+                  className="preference-checkbox"
                 />
                 <span>{pref}</span>
               </label>
@@ -95,7 +108,7 @@ export default function Preferences() {
           <button
             type="submit"
             disabled={isLoading || selectedPreferences.length === 0}
-            className="w-full py-3 px-6 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50"
+            className="submit-button"
           >
             {isLoading ? 'Loading...' : 'Get Recommendations'}
           </button>

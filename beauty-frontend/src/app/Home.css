@@ -1,0 +1,83 @@
+.home-container {
+  min-height: 100vh;
+  background-color: #f9fafb; /* Light mode background */
+  padding: 48px 16px; /* Equivalent to py-12 px-4 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+.home-container.dark {
+  background-color: #1f2937; /* Dark mode background */
+  color: #ffffff; /* Dark mode text color */
+}
+
+.home-title {
+  font-size: 2.25rem; /* Equivalent to text-4xl */
+  font-weight: bold; /* Equivalent to font-bold */
+  text-align: center; /* Center the text */
+  margin-bottom: 48px; /* Equivalent to mb-12 */
+  color: #1f2937; /* Dark mode text color */
+}
+
+.home-container.dark .home-title {
+  color: #e5e7eb; /* Light gray color for dark mode (equivalent to text-gray-300) */
+}
+
+.categories-grid {
+  max-width: 960px; /* Equivalent to max-w-6xl */
+  display: grid;
+  grid-template-columns: repeat(1, 1fr); /* Default to 1 column */
+  gap: 32px; /* Equivalent to gap-8 */
+}
+
+@media (min-width: 768px) {
+  .categories-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns on medium screens */
+  }
+}
+
+.category-card {
+  display: block;
+  background-color: #ffffff; /* Equivalent to bg-white */
+  border-radius: 8px; /* Equivalent to rounded-lg */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Equivalent to shadow-md */
+  padding: 32px; /* Equivalent to p-8 */
+  transition: box-shadow 0.3s; /* Transition for hover effect */
+}
+
+.category-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Equivalent to hover:shadow-lg */
+}
+
+.category-name {
+  font-size: 1.5rem; /* Equivalent to text-2xl */
+  font-weight: 600; /* Equivalent to font-semibold */
+  margin-bottom: 16px; /* Equivalent to mb-4 */
+  color: #374151; /* Equivalent to text-gray-700 */
+}
+
+.category-description {
+  color: #4b5563; /* Equivalent to text-gray-600 */
+}
+
+/* Styles for the toggle button */
+.toggle-button {
+  margin-bottom: 32px; /* Space between buttons */
+  width: 40px; /* Width for circular button */
+  height: 40px; /* Height for circular button */
+  background-color: #4f46e5; /* Button background */
+  color: #ffffff; /* Button text color */
+  border: none; /* Remove default border */
+  border-radius: 50%; /* Make it circular */
+  cursor: pointer; /* Pointer cursor */
+  display: flex; /* Center the emoji */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  font-size: 1.5rem; /* Adjust font size for emoji */
+}
+
+.toggle-button:hover {
+  background-color: #4338ca; /* Darker shade on hover */
+}
