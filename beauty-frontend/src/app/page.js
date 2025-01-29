@@ -1,16 +1,16 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import './globals.css'; // Import the global CSS file
-import './Home.css'; // Import the Home-specific CSS file
+import './globals.css'; // Importa o arquivo CSS global
+import './Home.css'; // Importa o CSS específico da Home
 
 export default function Home() {
-  const [isDarkMode, setIsDarkMode] = useState(false); // State for dark mode
+  const [isDarkMode, setIsDarkMode] = useState(false); // Estado para o modo escuro
 
   const categories = [
-    { id: 'hair', name: 'Hair', description: 'Discover your perfect hair routine' },
-    { id: 'makeup', name: 'Makeup', description: 'Discover your perfect makeup routine' },
-    { id: 'skincare', name: 'Skincare', description: 'Discover your perfect skincare routine' },
+    { id: 'hair', name: 'Cabelos', description: 'Encontre a rotina perfeita para seus cabelos' },
+    { id: 'makeup', name: 'Maquiagem', description: 'Descubra a maquiagem ideal para você' },
+    { id: 'skincare', name: 'Skincare', description: 'Cuide da sua pele com a melhor rotina' },
   ];
 
   const toggleDarkMode = () => {
@@ -20,15 +20,15 @@ export default function Home() {
   return (
     <div className={`home-container ${isDarkMode ? 'dark' : ''}`}>
       <h1 className="home-title">
-        Discover Your Perfect Beauty Routine
+        Encontre Sua Rotina de Beleza Perfeita
       </h1>
 
       <button 
         onClick={toggleDarkMode}
         className="toggle-button"
-        aria-label="Toggle dark mode"
+        aria-label="Alternar modo escuro"
       >
-        {isDarkMode ? '🌙' : '☀️'} {/* Moon for dark mode, sun for light mode */}
+        {isDarkMode ? '🌙' : '☀️'} {/* Lua para modo escuro, sol para modo claro */}
       </button>
 
       <div className="categories-grid">

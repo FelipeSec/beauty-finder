@@ -30,30 +30,37 @@ router.get('/scrape', async (req, res) => {
         url: `https://duckduckgo.com/?q=${encodeURIComponent(productQuery)}+price`,
       }],
       pageFunction: async ({ page }) => {
-        // Wait for the results to load
-        await page.waitForSelector('.result__body', { timeout: 5000 });
-
-        return page.evaluate(() => {
-          const results = [];
-          document.querySelectorAll('.result__body').forEach((item) => {
-            const title = item.querySelector('.result__title')?.textContent;
-            const url = item.querySelector('.result__url')?.href;
-            const snippet = item.querySelector('.result__snippet')?.textContent;
-
-            if (title && url) {
-              results.push({
-                title,
-                url,
-                snippet,
-              });
-            }
+        try {
+          await page.goto(`https://duckduckgo.com/?q=${encodeURIComponent(productQuery)}+price`, { 
+            waitUntil: 'networkidle2' 
           });
-          return results;
-        });
+          
+          await page.waitForSelector('.result__body', { timeout: 10000 });
+
+          return page.evaluate(() => {
+            const results = [];
+            document.querySelectorAll('.result__body').forEach((item) => {
+              const title = item.querySelector('.result__title')?.textContent;
+              const url = item.querySelector('.result__url')?.href;
+              const snippet = item.querySelector('.result__snippet')?.textContent;
+
+              if (title && url) {
+                results.push({
+                  title,
+                  url,
+                  snippet,
+                });
+              }
+            });
+            return results;
+          });
+        } catch (error) {
+          console.error('Error in page function:', error);
+          return [];
+        }
       },
     });
 
-    // Get scraping results
     const { items } = await client.dataset(run.defaultDatasetId).listItems();
     res.json(items);
     
