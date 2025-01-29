@@ -59,8 +59,16 @@ export default function Preferences() {
     try {
       const response = await fetch('http://localhost:5000/api/recommendations', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ category, preferences: selectedPreferences, minPrice, maxPrice })
+        headers: { 
+          'Content-Type': 'application/json',
+          'x-vercel-protection-bypass': '1ABqrgstckMqjPj4wwyJAq3K0q133JSJ'
+        },
+        body: JSON.stringify({ 
+          category, 
+          preferences: selectedPreferences, 
+          minPrice, 
+          maxPrice 
+        })
       });
 
       const text = await response.text();
