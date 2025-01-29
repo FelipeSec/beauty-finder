@@ -1,16 +1,31 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import './globals.css'; // Importa o arquivo CSS global
-import './Home.css'; // Importa o CSS específico da Home
+import './globals.css'; // Import the global CSS file
+import './Home.css'; // Import the Home-specific CSS file
 
 export default function Home() {
-  const [isDarkMode, setIsDarkMode] = useState(false); // Estado para o modo escuro
+  const [isDarkMode, setIsDarkMode] = useState(false); // State for dark mode
 
   const categories = [
-    { id: 'hair', name: 'Cabelos', description: 'Encontre a rotina perfeita para seus cabelos' },
-    { id: 'makeup', name: 'Maquiagem', description: 'Descubra a maquiagem ideal para você' },
-    { id: 'skincare', name: 'Skincare', description: 'Cuide da sua pele com a melhor rotina' },
+    { 
+      id: 'hair', 
+      name: 'Hair', 
+      description: 'Discover your perfect hair routine',
+      image: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388' // Hair image
+    },
+    { 
+      id: 'makeup', 
+      name: 'Makeup', 
+      description: 'Discover your perfect makeup routine',
+      image: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796' // Makeup image
+    },
+    { 
+      id: 'skincare', 
+      name: 'Skincare', 
+      description: 'Discover your perfect skincare routine',
+      image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908' // Skincare image
+    },
   ];
 
   const toggleDarkMode = () => {
@@ -20,15 +35,15 @@ export default function Home() {
   return (
     <div className={`home-container ${isDarkMode ? 'dark' : ''}`}>
       <h1 className="home-title">
-        Encontre Sua Rotina de Beleza Perfeita
+        Discover Your Perfect Beauty Routine
       </h1>
 
       <button 
         onClick={toggleDarkMode}
         className="toggle-button"
-        aria-label="Alternar modo escuro"
+        aria-label="Toggle dark mode"
       >
-        {isDarkMode ? '🌙' : '☀️'} {/* Lua para modo escuro, sol para modo claro */}
+        {isDarkMode ? '🌙' : '☀️'} {/* Moon for dark mode, sun for light mode */}
       </button>
 
       <div className="categories-grid">
@@ -37,9 +52,12 @@ export default function Home() {
             key={category.id}
             href={`/preferences/${category.id}`}
             className="category-card"
+            style={{ backgroundImage: `url(${category.image})` }} // Set background image
           >
-            <h2 className="category-name">{category.name}</h2>
-            <p className="category-description">{category.description}</p>
+            <div className="category-content">
+              <h2 className="category-name">{category.name}</h2>
+              <p className="category-description">{category.description}</p>
+            </div>
           </Link>
         ))}
       </div>

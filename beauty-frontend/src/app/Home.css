@@ -1,3 +1,77 @@
+.categories-grid {
+  max-width: 960px; /* Equivalent to max-w-6xl */
+  display: grid;
+  grid-template-columns: repeat(1, 1fr); /* Default to 1 column */
+  gap: 32px; /* Equivalent to gap-8 */
+}
+
+@media (min-width: 768px) {
+  .categories-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns on medium screens */
+  }
+}
+
+.category-card {
+  position: relative; /* Position relative for absolute children */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px; /* Rounded corners */
+  padding: 32px; /* Padding for content */
+  color: white; /* Default text color */
+  text-align: center; /* Center text */
+  border: 2px solid white; /* White border */
+  overflow: hidden; /* Hide overflow */
+  min-height: 250px; /* Minimum height for the card */
+  transition: all 0.3s ease; /* Smooth transition */
+  transform: translateY(0);
+}
+
+.category-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  background-size: cover;
+  background-position: center;
+  filter: blur(3px);
+  z-index: 0;
+}
+
+.category-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.category-content {
+  position: relative; /* Position relative for the text background */
+  background-color: rgba(255, 255, 255, 0.8); /* White background for text */
+  border-radius: 8px; /* Rounded corners */
+  padding: 16px; /* Padding for text */
+  z-index: 1; /* Ensure text is above the blurred background */
+}
+
+.home-container.dark .category-card {
+  background-color: rgba(31, 41, 55, 0.1); /* Dark mode background */
+  border: 2px solid #1f2937; /* Dark border */
+}
+
+.home-container.dark .category-content {
+  background-color: rgba(31, 41, 55, 0.8); /* Dark background for text */
+}
+
+/* Ensure text is light in dark mode */
+.home-container.dark .category-name,
+.home-container.dark .category-description {
+  color: #e5e7eb; /* Light gray color for dark mode text */
+}
+
+/* Ensure text is dark in light mode */
+.category-name,
+.category-description {
+  color: #374151; /* Dark gray color for light mode text */
+}
+
 .home-container {
   min-height: 100vh;
   background-color: #f9fafb; /* Light mode background */
@@ -23,43 +97,6 @@
 
 .home-container.dark .home-title {
   color: #e5e7eb; /* Light gray color for dark mode (equivalent to text-gray-300) */
-}
-
-.categories-grid {
-  max-width: 960px; /* Equivalent to max-w-6xl */
-  display: grid;
-  grid-template-columns: repeat(1, 1fr); /* Default to 1 column */
-  gap: 32px; /* Equivalent to gap-8 */
-}
-
-@media (min-width: 768px) {
-  .categories-grid {
-    grid-template-columns: repeat(3, 1fr); /* 3 columns on medium screens */
-  }
-}
-
-.category-card {
-  display: block;
-  background-color: #ffffff; /* Equivalent to bg-white */
-  border-radius: 8px; /* Equivalent to rounded-lg */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Equivalent to shadow-md */
-  padding: 32px; /* Equivalent to p-8 */
-  transition: box-shadow 0.3s; /* Transition for hover effect */
-}
-
-.category-card:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Equivalent to hover:shadow-lg */
-}
-
-.category-name {
-  font-size: 1.5rem; /* Equivalent to text-2xl */
-  font-weight: 600; /* Equivalent to font-semibold */
-  margin-bottom: 16px; /* Equivalent to mb-4 */
-  color: #374151; /* Equivalent to text-gray-700 */
-}
-
-.category-description {
-  color: #4b5563; /* Equivalent to text-gray-600 */
 }
 
 /* Styles for the toggle button */
