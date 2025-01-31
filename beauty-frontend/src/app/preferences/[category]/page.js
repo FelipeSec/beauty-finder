@@ -57,7 +57,7 @@ export default function Preferences() {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:5000/api/recommendations', {
+      const response = await fetch('https://nodejs-backend-zh31.vercel.app/api/recommendations', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
