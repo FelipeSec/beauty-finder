@@ -19,8 +19,8 @@ export default function Results() {
           throw new Error('No products found');
         }
 
-        // Base64 decoding
-        const decoded = atob(productsParam);
+        // Base64 decoding with decodeURIComponent
+        const decoded = decodeURIComponent(atob(productsParam));
         const parsed = JSON.parse(decoded);
 
         if (!Array.isArray(parsed)) {
@@ -40,7 +40,7 @@ export default function Results() {
   }, []);
 
   const toggleDarkMode = () => {
-    setIsDarkMode(prevMode => !prevMode);
+    setIsDarkMode((prevMode) => !prevMode);
   };
 
   const handleProductSelect = (productId) => {
@@ -89,7 +89,7 @@ export default function Results() {
       </button>
 
       <h1 className="title">
-        Recommended Products
+        Produtos Recomendados
       </h1>
 
       <div className="products-grid">
@@ -104,18 +104,18 @@ export default function Results() {
             
             <div className="product-footer">
               <div>
-                <span className="product-price">${product.price}</span>
-                <span className="currency">USD</span>
+                <span className="product-price">R$ {product.price}</span>
+                <span className="currency"></span>
               </div>
               <span className="recommended-badge">
-                Recommended
+                Recomendado
               </span>
             </div>
             
             {product.whyRecommend && (
               <div className="recommendation-reason">
                 <p>
-                  <span className="reason-label">Why:</span> {product.whyRecommend}
+                  <span className="reason-label">Motivo:</span> {product.whyRecommend}
                 </p>
               </div>
             )}
@@ -125,7 +125,7 @@ export default function Results() {
               onClick={() => handleProductSelect(product.id)} // Assuming product has an id property
               className="select-product-button"
             >
-              Select Product
+              Selecionar Produto
             </button>
           </div>
         ))}
