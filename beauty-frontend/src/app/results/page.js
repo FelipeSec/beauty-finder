@@ -16,7 +16,7 @@ export default function Results() {
         const productsParam = new URLSearchParams(window.location.search).get('products');
         
         if (!productsParam) {
-          throw new Error('No products found');
+          throw new Error('Nenhum produto encontrado');
         }
 
         // Base64 decoding with decodeURIComponent
@@ -24,12 +24,12 @@ export default function Results() {
         const parsed = JSON.parse(decoded);
 
         if (!Array.isArray(parsed)) {
-          throw new Error('Invalid product data format');
+          throw new Error('Formato de dados de produto inválido');
         }
 
         setProducts(parsed);
       } catch (error) {
-        console.error('Decoding error:', error);
+        console.error('Erro de decodificação:', error);
         setError(error.message);
       } finally {
         setIsLoading(false);
@@ -50,7 +50,7 @@ export default function Results() {
   if (isLoading) {
     return (
       <div className={`results-container ${isDarkMode ? 'dark' : ''} loading`}>
-        <div className="loading-message">Loading recommendations...</div>
+        <div className="loading-message">Carregando recomendações...</div>
       </div>
     );
   }
@@ -65,7 +65,7 @@ export default function Results() {
           onClick={() => router.push('/')}
           className="start-over-button"
         >
-          ← Start Over
+          ← Começar Novamente
         </button>
       </div>
     );
@@ -77,15 +77,15 @@ export default function Results() {
         onClick={() => router.push('/')}
         className="start-over-button"
       >
-        Start Over
+        Começar Novamente
       </button>
 
       <button 
         onClick={toggleDarkMode}
         className="toggle-button"
-        aria-label="Toggle dark mode"
+        aria-label="Mudar para modo claro/escuro"
       >
-        {isDarkMode ? '🌙' : '☀️'} {/* Moon for dark mode, sun for light mode */}
+        {isDarkMode ? '🌙' : '☀️'} {/* Lua para modo escuro, sol para modo claro */}
       </button>
 
       <h1 className="title">
@@ -120,20 +120,13 @@ export default function Results() {
               </div>
             )}
 
-            {/* Button to select the product */}
-            <button 
-              onClick={() => handleProductSelect(product.id)} // Assuming product has an id property
-              className="select-product-button"
-            >
-              Selecionar Produto
-            </button>
           </div>
         ))}
       </div>
 
       {products.length === 0 && (
         <div className="no-recommendations">
-          No recommendations found. Please try different preferences.
+          Nenhuma recomendação encontrada. Por favor, tente diferentes preferências.
         </div>
       )}
     </div>

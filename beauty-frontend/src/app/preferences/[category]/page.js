@@ -77,11 +77,11 @@ export default function Preferences() {
       const data = JSON.parse(text);
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to get recommendations');
+        throw new Error(data.error || 'Falha em obter recomendações');
       }
 
       if (!Array.isArray(data)) {
-        throw new Error('Invalid response format');
+        throw new Error('Formato de dados de produto inválido');
       }
 
       // Base64 encode the products data using encodeURIComponent
@@ -89,7 +89,7 @@ export default function Preferences() {
       router.push(`/results?products=${encodedProducts}&category=${category}`);
     } catch (err) {
       console.error('API Error:', err);
-      setError(err.message || 'Failed to process recommendations');
+      setError(err.message || 'Falha em obter recomendações');
     } finally {
       setIsLoading(false);
     }
@@ -99,21 +99,28 @@ export default function Preferences() {
     setIsDarkMode((prevMode) => !prevMode);
   };
 
+  // Mapping for category titles
+  const categoryTitles = {
+    hair: 'Preferências de Cabelo',
+    makeup: 'Preferências de Maquiagem',
+    skincare: 'Preferências de Skincare',
+  };
+
   return (
     <div className={`preferences-container ${isDarkMode ? 'dark' : ''}`}>
       <button onClick={() => router.push('/')} className="back-button">
-        ← Back to Categories
+        ← Voltar para Categorias
       </button>
 
-      <button onClick={toggleDarkMode} className="toggle-button" aria-label="Toggle dark mode">
-        {isDarkMode ? '🌙' : '☀️'} {/* Moon for dark mode, sun for light mode */}
+      <button onClick={toggleDarkMode} className="toggle-button" aria-label="Mudar para modo claro/escuro">
+        {isDarkMode ? '🌙' : '☀️'} {/* Lua para modo escuro, sol para modo claro */}
       </button>
 
       <div className="form-container">
         {error && <div className="error-message">{error}</div>}
 
         <h1 className="title">
-          {category?.charAt(0).toUpperCase() + category?.slice(1)} Preferences
+          {categoryTitles[category] || 'Preferências'}
         </h1>
 
         <form onSubmit={handleSubmit} className="preferences-form">
@@ -121,9 +128,9 @@ export default function Preferences() {
             {category === 'hair' && (
               <>
                 <label>
-                  Hair Type:
+                  Tipo de Cabelo:
                   <select onChange={(e) => handlePreferenceToggle(e.target.value)}>
-                    <option value="">Select Hair Type</option>
+                    <option value="">Selecione o tipo de cabelo</option>
                     {preferenceOptions.hair.hairTypes.map((type) => (
                       <option key={type} value={type}>
                         {type}
@@ -133,9 +140,9 @@ export default function Preferences() {
                 </label>
 
                 <label>
-                  Hair Texture:
+                  Textura do Cabelo:
                   <select onChange={(e) => handlePreferenceToggle(e.target.value)}>
-                    <option value="">Select Hair Texture</option>
+                    <option value="">Selecione a textura do cabelo</option>
                     {preferenceOptions.hair.hairTextures.map((texture) => (
                       <option key={texture} value={texture}>
                         {texture}
@@ -145,9 +152,9 @@ export default function Preferences() {
                 </label>
 
                 <label>
-                  Hair Length:
+                  Comprimento do Cabelo:
                   <select onChange={(e) => handlePreferenceToggle(e.target.value)}>
-                    <option value="">Select Hair Length</option>
+                    <option value="">Selecione o comprimento do cabelo</option>
                     {preferenceOptions.hair.hairLengths.map((length) => (
                       <option key={length} value={length}>
                         {length}
@@ -157,9 +164,9 @@ export default function Preferences() {
                 </label>
 
                 <label>
-                  Scalp Type:
+                  Tipo de Couro Cabeludo:
                   <select onChange={(e) => handlePreferenceToggle(e.target.value)}>
-                    <option value="">Select Scalp Type</option>
+                    <option value="">Selecione o tipo de couro cabeludo</option>
                     {preferenceOptions.hair.scalpTypes.map((type) => (
                       <option key={type} value={type}>
                         {type}
@@ -168,7 +175,7 @@ export default function Preferences() {
                   </select>
                 </label>
 
-                <label>Concerns:</label>
+                <label>Preocupações:</label>
                 {preferenceOptions.hair.concerns.map((concern) => (
                   <label key={concern} className="preference-item">
                     <input
@@ -182,9 +189,9 @@ export default function Preferences() {
                 ))}
 
                 <label>
-                  Wanted Products:
+                  Produtos Desejados:
                   <select onChange={(e) => handlePreferenceToggle(e.target.value)}>
-                    <option value="">Select Wanted Products</option>
+                    <option value="">Selecione os produtos desejados</option>
                     {preferenceOptions.hair.wantedProducts.map((product) => (
                       <option key={product} value={product}>
                         {product}
@@ -198,9 +205,9 @@ export default function Preferences() {
             {category === 'makeup' && (
               <>
                 <label>
-                  Skin Shade:
+                  Tom de Pele:
                   <select onChange={(e) => handlePreferenceToggle(e.target.value)}>
-                    <option value="">Select Skin Shade</option>
+                    <option value="">Selecione o tom de pele</option>
                     {preferenceOptions.makeup.skinShades.map((shade) => (
                       <option key={shade} value={shade}>
                         {shade}
@@ -210,9 +217,9 @@ export default function Preferences() {
                 </label>
 
                 <label>
-                  Type of Foundation:
+                  Tipo de Base:
                   <select onChange={(e) => handlePreferenceToggle(e.target.value)}>
-                    <option value="">Select Foundation Type</option>
+                    <option value="">Selecione o tipo de base</option>
                     {preferenceOptions.makeup.foundationTypes.map((type) => (
                       <option key={type} value={type}>
                         {type}
@@ -222,9 +229,9 @@ export default function Preferences() {
                 </label>
 
                 <label>
-                  Corrective:
+                  Corretivo:
                   <select onChange={(e) => handlePreferenceToggle(e.target.value)}>
-                    <option value="">Select Corrective Type</option>
+                    <option value="">Selecione o tipo de corretivo</option>
                     {preferenceOptions.makeup.correctiveTypes.map((type) => (
                       <option key={type} value={type}>
                         {type}
@@ -233,7 +240,7 @@ export default function Preferences() {
                   </select>
                 </label>
 
-                <label>Eye Makeup Types:</label>
+                <label>Tipos de Maquiagem para Olhos:</label>
                 {preferenceOptions.makeup.eyeMakeupTypes.map((type) => (
                   <label key={type} className="preference-item">
                     <input
@@ -246,7 +253,7 @@ export default function Preferences() {
                   </label>
                 ))}
 
-                <label>Concerns:</label>
+                <label>Preocupações:</label>
                 {preferenceOptions.makeup.concerns.map((concern) => (
                   <label key={concern} className="preference-item">
                     <input
@@ -260,9 +267,9 @@ export default function Preferences() {
                 ))}
 
                 <label>
-                  Wanted Finish:
+                  Acabamento Desejado:
                   <select onChange={(e) => handlePreferenceToggle(e.target.value)}>
-                    <option value="">Select Finish</option>
+                    <option value="">Selecione o acabamento</option>
                     {preferenceOptions.makeup.wantedFinish.map((finish) => (
                       <option key={finish} value={finish}>
                         {finish}
@@ -271,7 +278,7 @@ export default function Preferences() {
                   </select>
                 </label>
 
-                <label>Allergies:</label>
+                <label>Alergias:</label>
                 {preferenceOptions.makeup.allergies.map((allergy) => (
                   <label key={allergy} className="preference-item">
                     <input
@@ -289,9 +296,9 @@ export default function Preferences() {
             {category === 'skincare' && (
               <>
                 <label>
-                  Skin Type:
+                  Tipo de Pele:
                   <select onChange={(e) => handlePreferenceToggle(e.target.value)}>
-                    <option value="">Select Skin Type</option>
+                    <option value="">Selecione o tipo de pele</option>
                     {preferenceOptions.skincare.skinTypes.map((type) => (
                       <option key={type} value={type}>
                         {type}
@@ -300,7 +307,7 @@ export default function Preferences() {
                   </select>
                 </label>
 
-                <label>Skin Concerns:</label>
+                <label>Preocupações com a Pele:</label>
                 {preferenceOptions.skincare.skinConcerns.map((concern) => (
                   <label key={concern} className="preference-item">
                     <input
@@ -314,9 +321,9 @@ export default function Preferences() {
                 ))}
 
                 <label>
-                  Skincare Routine:
+                  Rotina de Cuidados com a Pele:
                   <select onChange={(e) => handlePreferenceToggle(e.target.value)}>
-                    <option value="">Select Routine</option>
+                    <option value="">Selecione a rotina</option>
                     {preferenceOptions.skincare.skincareRoutine.map((routine) => (
                       <option key={routine} value={routine}>
                         {routine}
@@ -326,9 +333,9 @@ export default function Preferences() {
                 </label>
 
                 <label>
-                  Ingredient Preferences:
+                  Preferências de Ingredientes:
                   <select onChange={(e) => handlePreferenceToggle(e.target.value)}>
-                    <option value="">Select Ingredients</option>
+                    <option value="">Selecione os ingredientes</option>
                     {preferenceOptions.skincare.ingredientPreferences.map((ingredient) => (
                       <option key={ingredient} value={ingredient}>
                         {ingredient}
@@ -338,9 +345,9 @@ export default function Preferences() {
                 </label>
 
                 <label>
-                  Wanted Results:
+                  Resultados Desejados:
                   <select onChange={(e) => handlePreferenceToggle(e.target.value)}>
-                    <option value="">Select Results</option>
+                    <option value="">Selecione os resultados</option>
                     {preferenceOptions.skincare.wantedResults.map((result) => (
                       <option key={result} value={result}>
                         {result}
@@ -350,9 +357,9 @@ export default function Preferences() {
                 </label>
 
                 <label>
-                  SPF:
+                  FPS:
                   <select onChange={(e) => handlePreferenceToggle(e.target.value)}>
-                    <option value="">Select SPF Preference</option>
+                    <option value="">Selecione a preferência de FPS</option>
                     {preferenceOptions.skincare.spf.map((option) => (
                       <option key={option} value={option}>
                         {option}
@@ -362,9 +369,9 @@ export default function Preferences() {
                 </label>
 
                 <label>
-                  Natural or Organic:
+                  Natural ou Orgânico:
                   <select onChange={(e) => handlePreferenceToggle(e.target.value)}>
-                    <option value="">Select Preference</option>
+                    <option value="">Selecione a preferência</option>
                     {preferenceOptions.skincare.naturalOrOrganic.map((option) => (
                       <option key={option} value={option}>
                         {option}
@@ -377,7 +384,7 @@ export default function Preferences() {
 
             {/* Min-Max Price Slider */}
             <div className="price-range">
-              <label>Price Range:</label>
+              <label>Faixa de Preço:</label>
               <input
                 type="range"
                 min="0"
@@ -395,8 +402,8 @@ export default function Preferences() {
                 className="price-slider"
               />
               <div>
-                <span>Min Price: ${minPrice}</span>
-                <span>Max Price: ${maxPrice}</span>
+                <span>Preço Mínimo: R${minPrice}</span>
+                <span>Preço Máximo: R${maxPrice}</span>
               </div>
             </div>
           </div>
@@ -406,7 +413,7 @@ export default function Preferences() {
             disabled={isLoading || selectedPreferences.length === 0}
             className="submit-button"
           >
-            {isLoading ? 'Loading...' : 'Get Recommendations'}
+            {isLoading ? 'Carregando...' : 'Obter Recomendações'}
           </button>
         </form>
       </div>

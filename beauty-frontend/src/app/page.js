@@ -10,20 +10,20 @@ export default function Home() {
   const categories = [
     { 
       id: 'hair', 
-      name: 'Hair', 
-      description: 'Discover your perfect hair routine',
+      name: 'Cabelo', 
+      description: 'Descubra sua rotina de cabelo perfeita',
       image: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388' // Hair image
     },
     { 
       id: 'makeup', 
-      name: 'Makeup', 
-      description: 'Discover your perfect makeup routine',
+      name: 'Maquiagem', 
+      description: 'Descubra sua rotina de maquiagem perfeita',
       image: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796' // Makeup image
     },
     { 
       id: 'skincare', 
       name: 'Skincare', 
-      description: 'Discover your perfect skincare routine',
+      description: 'Descubra sua rotina de skincare perfeita',
       image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908' // Skincare image
     },
   ];
@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <div className={`home-container ${isDarkMode ? 'dark' : ''}`}>
       <h1 className="home-title">
-        Discover Your Perfect Beauty Routine
+        Descubra suas rotinas perfeitas de beleza
       </h1>
 
       <button 
